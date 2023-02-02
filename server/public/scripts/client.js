@@ -18,8 +18,8 @@ function setupClickListeners() {
       koalaname: $('#nameIn').val(),
       age: $('#ageIn').val(),
       gender: $('#genderIn').val(),
-      ready: $('#readyForTransferIn').val(),
-      notes: $('#notesIn').val(),
+      ready: false,
+      notes: $('#notesIn').val()
     };
     // call saveKoala with the new object
     saveKoala( koalaToSend );
@@ -45,9 +45,9 @@ function saveKoala( newKoala ){
   $.ajax({
     type: 'POST',
     url: '/koalas/',
-    data: koalaToSend
+    data: newKoala
   }).then(() => {
-   
+    getKoalas();
   }).catch((err) => {
     console.error('PUT request for /koala failed', err);
     $('body').prepend('<h2>failed PUT request</h2>')

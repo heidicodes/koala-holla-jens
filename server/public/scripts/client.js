@@ -21,9 +21,9 @@ function setupClickListeners() {
       readyForTransfer: $('#readyForTransferIn').val(),
       notes: $('#notesIn').val(),
     };
-    // call saveKoala with the new obejct
-    saveKoala(koalaToSend);
-  });
+    // call saveKoala with the new object
+    saveKoala( koalaToSend );
+  }); 
 }
 
 function getKoalas() {
@@ -38,7 +38,18 @@ function getKoalas() {
   });
 } // end getKoalas
 
-function saveKoala(newKoala) {
-  console.log("in saveKoala", newKoala);
+function saveKoala( newKoala ){
+  console.log( 'in saveKoala', newKoala );
+  
   // ajax call to server to get koalas
+  $.ajax({
+    type: 'POST',
+    url: '/koala/',
+    data: koalaToSend
+  }).then(() => {
+   
+  }).catch((err) => {
+    console.error('PUT request for /koala failed', err);
+    $('body').prepend('<h2>failed PUT request</h2>')
+  });
 }

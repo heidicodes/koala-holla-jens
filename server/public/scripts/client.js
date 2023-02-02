@@ -22,7 +22,7 @@ function setupClickListeners() {
       readyForTransfer: 'testName',
       notes: 'testName',
     };
-    // call saveKoala with the new obejct
+    // call saveKoala with the new object
     saveKoala( koalaToSend );
   }); 
 }
@@ -35,6 +35,16 @@ function getKoalas(){
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
+  
   // ajax call to server to get koalas
- 
+  $.ajax({
+    type: 'POST',
+    url: '/koala/',
+    data: koalaToSend
+  }).then(() => {
+   
+  }).catch((err) => {
+    console.error('PUT request for /koalaholla failed', err);
+    $('body').prepend('<h2>failed PUT request</h2>')
+  });
 }

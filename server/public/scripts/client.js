@@ -53,3 +53,31 @@ function saveKoala( newKoala ){
     $('body').prepend('<h2>failed PUT request</h2>')
   });
 }
+
+function render(koalas) {
+  for (let koala of koalas) {
+    let renderElement = $("#viewKoalas");
+    let readyText = 'Ready 🐨';
+    if (!koala.ready) {
+      readyText = "<input class='ready-btn' type='button' value='Not Ready 🐨'>" 
+    }
+    let appendStr = `
+    <tr data-id=${koala.id} data-ready=${koala.ready}>
+      <td>
+        ${koala.koalaname}
+      </td>
+      <td>
+        ${koala.gender}
+      </td>
+      <td>
+        ${koala.age}
+      </td>
+      <td>
+        ${readyText}
+      </td>
+      <td>
+        ${koala.notes}
+      </td>`;
+      renderElement.append(appendStr);
+  }
+}

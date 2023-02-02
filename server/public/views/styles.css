@@ -1,0 +1,38 @@
+.address{
+    color: rgb(55, 26, 86);
+    text-shadow: 1px 1px 2px rgb(114, 7, 7), 0 0 1em rgb(5, 5, 89), 0 0 0.2em rgb(85, 54, 88);
+    
+}
+
+.addressDiv{
+    background-color: rgb(250, 120, 73);
+}
+
+body {
+    background-color: rgb(247, 166, 137);
+}
+
+header {
+    text-align: center;
+}
+
+.icon {
+    border: solid 8px rgb(129, 54, 80);
+    border-radius: 80px;
+    height: 300px;
+    width: 300px;
+}
+
+.icon:hover {
+    box-shadow: 0 0 10px 10px rgba(2, 99, 132, 0.5);
+}
+
+.sleepyGuy {
+    height: 25%;
+    width: 25%;
+    border: solid 4px rgb(82, 33, 78);
+}
+
+#sleepyGuy2 {
+    transform: scaleX(-1);
+}

@@ -16,11 +16,11 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: $('#nameIn').val(''),
-      age: $('#ageIn').val(''),
-      gender: $('#genderIn').val(''),
-      readyForTransfer: $('#readyForTransferIn').val(''),
-      notes: $('#notesIn').val(''),
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      readyForTransfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val(),
     };
     // call saveKoala with the new obejct
     saveKoala( koalaToSend );

@@ -25,7 +25,7 @@ koalaRouter.post('/', (req, res) => {
         VALUES ($1 ,$2, $3, $4, $5);
     `;
     const queryParams = [
-        newKoala.koalaName,
+        newKoala.koalaname,
         newKoala.age,
         newKoala.gender,
         newKoala.ready,

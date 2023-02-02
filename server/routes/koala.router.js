@@ -43,11 +43,11 @@ koalaRouter.post('/', (req, res) => {
 });
 
 // PUT
-koalaRouter.put('/koalas/:id', (req, res) => {
+koalaRouter.put('/:id', (req, res) => {
     const queryText = `
     UPDATE koalas 
-    SET "ready"= NOT "ready"
-    WHERE id=$1;
+    SET "ready"= $1
+    WHERE id=$2;
     `;
     const queryParams = [req.body.ready, req.params.id];
     pool.query(queryText, queryParams)

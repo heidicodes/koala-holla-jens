@@ -31,7 +31,7 @@ function getKoalas() {
   // ajax call to server to get koalas
   $.ajax({
     method: "GET",
-    url: "/koalas/",
+    url: "/koalas"
   }).then((response) => {
     console.log(`in getKoalas;`, response);
     render(response);

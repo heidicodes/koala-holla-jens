@@ -6,6 +6,8 @@ $(document).ready(function () {
   setupClickListeners();
   // load existing koalas on page load
   getKoalas();
+
+  $(document).on('click','.ready-btn', isReady);
 }); // end doc ready
 
 function setupClickListeners() {
@@ -53,6 +55,25 @@ function saveKoala( newKoala ){
     $('body').prepend('<h2>failed PUT request</h2>')
   });
 }
+
+function isReady() {
+  console.log('in isReady', $('.ready-btn'));
+
+  let id = $(this).parents('tr').data('id');
+  let isReady = $(this).parents('tr').data('ready');
+
+  $.ajax({
+    method: 'PUT',
+    url: `/koalas/${id}`,
+    data: {ready: isReady}
+  })
+  .then (() => {
+    getKoalas();
+  })
+  .catch ((error) => {
+    res.sendStatus (500)
+  });
+};
 
 function render(koalas) {
   for (let koala of koalas) {

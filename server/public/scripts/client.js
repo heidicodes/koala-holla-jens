@@ -4,6 +4,7 @@ $(document).ready(function () {
   console.log("JQ");
   // Establish Click Listeners
   setupClickListeners();
+  $(document).on('click', '.delete-btn', deleteKoala)
   // load existing koalas on page load
   getKoalas();
 }); // end doc ready
@@ -24,6 +25,21 @@ function setupClickListeners() {
     // call saveKoala with the new object
     saveKoala( koalaToSend );
   }); 
+}
+
+function deleteKoala() {
+  let id = $(this).parents('tr').data('id');
+  $.ajax({
+    method: 'DELETE',
+    url: `/koalas/${id}`
+  })
+  .then((response) => {
+    console.log('Deleted koala', id);
+    getKoalas();
+  }) 
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 function getKoalas() {
@@ -55,8 +71,9 @@ function saveKoala( newKoala ){
 }
 
 function render(koalas) {
+  let renderElement = $("#viewKoalas");
+  renderElement.empty();
   for (let koala of koalas) {
-    let renderElement = $("#viewKoalas");
     let readyText = 'Ready 🐨';
     if (!koala.ready) {
       readyText = "<input class='ready-btn' type='button' value='Not Ready 🐨'>" 
@@ -77,6 +94,9 @@ function render(koalas) {
       </td>
       <td>
         ${koala.notes}
+      </td>
+      <td>
+        <input class='delete-btn' type='button' value='❌'>
       </td>`;
       renderElement.append(appendStr);
   }

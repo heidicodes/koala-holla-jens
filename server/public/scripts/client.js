@@ -24,6 +24,12 @@ function setupClickListeners() {
       ready: $('#readyForTransferIn').val(),
       notes: $('#notesIn').val(),
     };
+      $('#nameIn').val(''),
+      $('#ageIn').val(''),
+      $('#genderIn').val(''),
+      $('#readyForTransferIn').val(''),
+      $('#notesIn').val('')
+
     // call saveKoala with the new object
     saveKoala( koalaToSend );
   }); 

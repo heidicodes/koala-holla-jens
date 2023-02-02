@@ -15,10 +15,10 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: $('#nameIn').val(),
+      koalaname: $('#nameIn').val(),
       age: $('#ageIn').val(),
       gender: $('#genderIn').val(),
-      readyForTransfer: $('#readyForTransferIn').val(),
+      ready: $('#readyForTransferIn').val(),
       notes: $('#notesIn').val(),
     };
     // call saveKoala with the new object

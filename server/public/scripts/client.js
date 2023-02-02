@@ -77,17 +77,18 @@ function isReady() {
 
   let id = $(this).parents('tr').data('id');
   let isReady = $(this).parents('tr').data('ready');
+  console.log(isReady);
 
   $.ajax({
     method: 'PUT',
     url: `/koalas/${id}`,
-    data: {ready: isReady}
+    data: {ready: !isReady}
   })
-  .then (() => {
+  .then ((response) => {
     getKoalas();
   })
   .catch ((error) => {
-    res.sendStatus (500)
+    console.log(error);
   });
 };
 

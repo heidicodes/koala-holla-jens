@@ -16,7 +16,7 @@ koalaRouter.get("/", (req, res) => {
 });
 
 // POST
-router.post('/', (req, res) => {
+koalaRouter.post('/', (req, res) => {
 
     const newKoala = req.body;
     const queryText = `

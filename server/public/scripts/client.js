@@ -44,7 +44,7 @@ function saveKoala( newKoala ){
   }).then(() => {
    
   }).catch((err) => {
-    console.error('PUT request for /koalaholla failed', err);
+    console.error('PUT request for /koala failed', err);
     $('body').prepend('<h2>failed PUT request</h2>')
   });
 }

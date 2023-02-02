@@ -12,13 +12,14 @@ router.post('/', (req, res) => {
 
     const newKoala = req.body;
     const queryText = `
-        INSERT INTO koala_holla (koalaName, age, gender, Notes, Mark Ready, Remove)
+        INSERT INTO "koalas" ("koalaName", "age", "gender", "markReady", "notes", "remove")
         VALUES ($1 ,$2, $3, $4, $5);
     `;
     const queryParams = [
         newKoala.koalaName,
         newKoala.age,
         newKoala.gender,
+        newKoala.markReady,
         newKoala.notes,
         newKoala.remove
     ]

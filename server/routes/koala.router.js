@@ -49,7 +49,7 @@ koalaRouter.put('/koalas/:id', (req, res) => {
     SET "ready"= NOT "ready"
     WHERE id=$1;
     `;
-    const queryParams = [req.params.id];
+    const queryParams = [req.body.ready, req.params.id];
     pool.query(queryText, queryParams)
     .then((dbRes) => {
         res.sendStatus(200);

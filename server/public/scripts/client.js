@@ -4,20 +4,20 @@ $(document).ready(function () {
   console.log("JQ");
   // Establish Click Listeners
   setupClickListeners();
-  $(document).on('click', '.delete-btn', deleteKoala)
-  $(document).on('click', '.edit-btn', onEdit)
-  $(document).on('click', '.accept-btn', acceptEdit)
-  $(document).on('click', '.cancel-btn', cancelEdit)
+  $(document).on("click", ".delete-btn", deleteKoala);
+  $(document).on("click", ".edit-btn", onEdit);
+  $(document).on("click", ".accept-btn", acceptEdit);
+  $(document).on("click", ".cancel-btn", cancelEdit);
   // load existing koalas on page load
   getKoalas();
 
-  $(document).on('click', '.ready-btn', isReady);
+  $(document).on("click", ".ready-btn", isReady);
 }); // end doc ready
 
 let editId = -1;
 
 function onEdit() {
-  editId = $(this).parents('tr').data('id');
+  editId = $(this).parents("tr").data("id");
   getKoalas();
 }
 
@@ -26,25 +26,26 @@ function cancelEdit() {
   getKoalas();
 }
 
-
 function acceptEdit() {
   editId = -1;
-  let id = $(this).parents('tr').data('id');
-  let koalaname = $('.name-in').val();
-  let gender = $('.gender-in').val();
-  let age = $('.age-in').val();
-  let notes = $('.notes-in').val();
+  let id = $(this).parents("tr").data("id");
+  let koalaname = $(".name-in").val();
+  let gender = $(".gender-in").val();
+  let age = $(".age-in").val();
+  let notes = $(".notes-in").val();
   $.ajax({
-    type: 'PUT',
+    type: "PUT",
     url: `/koalas/edit/${id}`,
     data: { koalaname, gender, age, notes },
-  }).then(function (response) {
-    console.log('Response from server.', response);
-    getKoalas();
-  }).catch(function (error) {
-    console.log('Error in PUT', error)
-    alert('Unable to edit koala at this time. Please try again later.');
-  });
+  })
+    .then(function (response) {
+      console.log("Response from server.", response);
+      getKoalas();
+    })
+    .catch(function (error) {
+      console.log("Error in PUT", error);
+      alert("Unable to edit koala at this time. Please try again later.");
+    });
 }
 
 function setupClickListeners() {
@@ -54,31 +55,41 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      koalaname: $('#nameIn').val(),
-      age: $('#ageIn').val(),
-      gender: $('#genderIn').val(),
+      koalaname: $("#nameIn").val(),
+      age: $("#ageIn").val(),
+      gender: $("#genderIn").val(),
       ready: false,
-      notes: $('#notesIn').val()
+      notes: $("#notesIn").val(),
     };
-    $('#nameIn').val(''),
-      $('#ageIn').val(''),
-      $('#genderIn').val(''),
-      $('#readyForTransferIn').val(''),
-      $('#notesIn').val('')
 
-    // call saveKoala with the new object
-    saveKoala(koalaToSend);
+    if (
+      $("#nameIn").val() == "" ||
+      $("#ageIn").val() == "" ||
+      $("#genderIn").val() == "" ||
+      $("#notesIn").val() == ""
+    ) {
+      alert("FILL IN THE FORM FOOL");
+    } else {
+      $("#nameIn").val(""),
+        $("#ageIn").val(""),
+        $("#genderIn").val(""),
+        $("#readyForTransferIn").val(""),
+        $("#notesIn").val("");
+
+      // call saveKoala with the new object
+      saveKoala(koalaToSend);
+    }
   });
 }
 
 function deleteKoala() {
-  let id = $(this).parents('tr').data('id');
+  let id = $(this).parents("tr").data("id");
   $.ajax({
-    method: 'DELETE',
-    url: `/koalas/${id}`
+    method: "DELETE",
+    url: `/koalas/${id}`,
   })
     .then((response) => {
-      console.log('Deleted koala', id);
+      console.log("Deleted koala", id);
       getKoalas();
     })
     .catch((err) => {
@@ -91,7 +102,7 @@ function getKoalas() {
   // ajax call to server to get koalas
   $.ajax({
     method: "GET",
-    url: "/koalas"
+    url: "/koalas",
   }).then((response) => {
     console.log(`in getKoalas;`, response);
     render(response);
@@ -99,32 +110,34 @@ function getKoalas() {
 } // end getKoalas
 
 function saveKoala(newKoala) {
-  console.log('in saveKoala', newKoala);
+  console.log("in saveKoala", newKoala);
 
   // ajax call to server to get koalas
   $.ajax({
-    type: 'POST',
-    url: '/koalas/',
-    data: newKoala
-  }).then(() => {
-    getKoalas();
-  }).catch((err) => {
-    console.error('PUT request for /koala failed', err);
-    $('body').prepend('<h2>failed PUT request</h2>')
-  });
+    type: "POST",
+    url: "/koalas/",
+    data: newKoala,
+  })
+    .then(() => {
+      getKoalas();
+    })
+    .catch((err) => {
+      console.error("PUT request for /koala failed", err);
+      $("body").prepend("<h2>failed PUT request</h2>");
+    });
 }
 
 function isReady() {
-  console.log('in isReady', $('.ready-btn'));
+  console.log("in isReady", $(".ready-btn"));
 
-  let id = $(this).parents('tr').data('id');
-  let isReady = $(this).parents('tr').data('ready');
+  let id = $(this).parents("tr").data("id");
+  let isReady = $(this).parents("tr").data("ready");
   console.log(isReady);
 
   $.ajax({
-    method: 'PUT',
+    method: "PUT",
     url: `/koalas/${id}`,
-    data: { ready: !isReady }
+    data: { ready: !isReady },
   })
     .then((response) => {
       getKoalas();
@@ -132,7 +145,7 @@ function isReady() {
     .catch((error) => {
       console.log(error);
     });
-};
+}
 
 function render(koalas) {
   let renderElement = $("#viewKoalas");
@@ -140,57 +153,57 @@ function render(koalas) {
   for (let koala of koalas) {
     let readyText = "Ready <input class='ready-btn' type='button' value='🐨'>";
     if (!koala.ready) {
-      readyText = "Not Ready<input class='ready-btn' type='button' value='🐨'>" 
+      readyText = "Not Ready<input class='ready-btn' type='button' value='🐨'>";
     }
     if (koala.id == editId) {
       let appendStr = `
-      <tr data-id=${koala.id} data-ready="${koala.ready}">
+        <tr data-id=${koala.id} data-ready="${koala.ready}">
         <td>
-          <input class='name-in' value="${koala.koalaname}">
+        <input class='name-in' value="${koala.koalaname}">
         </td>
         <td>
-          <input class='age-in' value="${koala.age}">
+        <input class='age-in' value="${koala.age}" type="number">
         </td>
         <td>
-          <input class='gender-in' value="${koala.gender}">
+        <input class='gender-in' value="${koala.gender}">
         </td>
         <td>
-          ${readyText}
+        ${readyText}
         </td>
         <td>
-          <input class='notes-in' value="${koala.notes}">
+        <input class='notes-in' value="${koala.notes}">
         </td>
         <td>
-          <span>
-            <input class='accept-btn' type='button' value='✅'>
-            <input class='cancel-btn' type='button' value='❌'>
-          </span>
+        <span>
+        <input class='accept-btn' type='button' value='✅'>
+        <input class='cancel-btn' type='button' value='❌'>
+        </span>
         </td>`;
-        renderElement.append(appendStr);
+      renderElement.append(appendStr);
     } else {
       let appendStr = `
-    <tr data-id=${koala.id} data-ready=${koala.ready}>
-      <td>
+        <tr data-id=${koala.id} data-ready=${koala.ready}>
+        <td>
         ${koala.koalaname}
-      </td>
-      <td>
+        </td>
+        <td>
         ${koala.age}
-      </td>
-      <td>
+        </td>
+        <td>
         ${koala.gender}
-      </td>
-      <td>
+        </td>
+        <td>
         ${readyText}
-      </td>
-      <td>
+        </td>
+        <td>
         ${koala.notes}
-      </td>
-      <td>
+        </td>
+        <td>
         <span>
-          <input class='edit-btn' type='button' value='📝'>
-          <input class='delete-btn' type='button' value='❌'>
+        <input class='edit-btn' type='button' value='📝'>
+        <input class='delete-btn' type='button' value='❌'>
         </span>
-      </td>`;
+        </td>`;
       renderElement.append(appendStr);
     }
   }

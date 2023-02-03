@@ -6,7 +6,8 @@ const pool = require('../modules/pool');
 
 // GET
 koalaRouter.get("/", (req, res) => {
-  let queryText = `SELECT * FROM "koalas";`;
+  let queryText = `SELECT * FROM "koalas"
+  ORDER BY id ASC;`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))

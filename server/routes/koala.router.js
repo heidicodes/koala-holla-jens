@@ -60,6 +60,27 @@ koalaRouter.put('/:id', (req, res) => {
     });
 });
 
+koalaRouter.put('/edit/:id', (req, res) => {
+    const queryText = `
+    UPDATE koalas 
+    SET "koalaname"= $2,"gender"=$3,"age"=$4,"notes"=$5
+    WHERE id=$1;
+    `;
+    const queryParams = 
+    [req.params.id,
+        req.body.koalaname,
+        req.body.gender,
+        req.body.age,
+        req.body.notes];
+    pool.query(queryText, queryParams)
+    .then((dbRes) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log('PUT /koalas/edit/:id failed', error)
+    });
+});
+
 // DELETE
 koalaRouter.delete('/:id', (req, res) => {
     let query = `

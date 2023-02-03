@@ -138,9 +138,9 @@ function render(koalas) {
   let renderElement = $("#viewKoalas");
   renderElement.empty();
   for (let koala of koalas) {
-    let readyText = 'Ready 🐨';
+    let readyText = "Ready <input class='ready-btn' type='button' value='🐨'>";
     if (!koala.ready) {
-      readyText = "<input class='ready-btn' type='button' value='Not Ready 🐨'>"
+      readyText = "Not Ready<input class='ready-btn' type='button' value='🐨'>" 
     }
     if (koala.id == editId) {
       let appendStr = `
